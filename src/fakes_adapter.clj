@@ -31,7 +31,7 @@
 (defn merge-stubs [stubs]
   (reduce merge (map convert-stub (partition 2 stubs))))
 
-(defmacro clj-http-fake-adapter
+(defmacro http-fake-adapter
   "Evaluates http-kit stubs expressions and re-writes it into
   equivalent stub expressions for clj-http-fake"
   ([http-kit-stub]

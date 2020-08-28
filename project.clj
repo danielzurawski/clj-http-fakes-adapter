@@ -1,5 +1,5 @@
 (defproject clj-http-fakes-adapter "0.0.1"
-  :description "Macros for httpkit.fake to clj-http.fake conversion"
+  :description "Macros for http-kit.fake to clj-http.fake conversion"
   :license {:name "BSD 3-Clause License"
             :url  "https://opensource.org/licenses/BSD-3-Clause"}
   :url "https://github.com/danielzurawski/clj-http-fakes-adapter"

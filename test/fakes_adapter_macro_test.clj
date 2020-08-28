@@ -1,18 +1,18 @@
 (ns fakes-adapter-macro-test
   (:require
     [clojure.test :refer :all]
-    [fakes-adapter :refer [clj-http-fake-adapter]]
+    [fakes-adapter :refer [http-fake-adapter]]
     [support.http-kit-api :as http-kit-stubs]))
 
 (deftest test-fake-adapter
-  (testing "it should convert httpkit.fake to clj-http.fake with single stub"
+  (testing "it should convert http-kit.fake to clj-http.fake with single stub"
     (let [response-value (second
                            (http-kit-stubs/on-get
                              "base-url"
                              {:users {:href      "/users{?admin}"
                                       :templated true}}))
           out (macroexpand-1
-                `(clj-http-fake-adapter
+                `(http-fake-adapter
                    (with-fake-http
                      ~(http-kit-stubs/on-get
                         "base-url"
@@ -29,7 +29,7 @@
 
                "hello-world")))))
 
-  (testing "it should convert httpkit.fake to clj-http.fake with query-params"
+  (testing "it should convert http-kit.fake to clj-http.fake with query-params"
     (let [response-value (second
                            (http-kit-stubs/on-get
                              "base-url"
@@ -39,7 +39,7 @@
                                       :templated true}}))
 
           out (macroexpand-1
-                `(clj-http-fake-adapter
+                `(http-fake-adapter
                    (with-fake-http
                      ~(http-kit-stubs/on-get
                        "base-url"
@@ -65,7 +65,7 @@
 
                "hello-world")))))
 
-  (testing "it should convert httpkit.fake to clj-http.fake with multple stubs"
+  (testing "it should convert http-kit.fake to clj-http.fake with multple stubs"
     (let [response-value-1 (second (http-kit-stubs/on-get
                                      "base-url"
                                      {:users {:href      "/users{?admin}"
@@ -75,7 +75,7 @@
                                      {:status 200}))
 
           out (macroexpand-1
-                `(clj-http-fake-adapter
+                `(http-fake-adapter
                    (with-fake-http
                      (concat
                        ~(http-kit-stubs/on-get
