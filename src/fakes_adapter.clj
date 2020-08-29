@@ -4,22 +4,16 @@
             [clj-http.fake :as clj-http-fake]))
 
 (defn with-method [req res]
-  (let [req-sym (gensym)]
-    {(:url req)
-     {(:method req)
-      (with-meta
-        `(fn [~req-sym]
-           ~res)
-        {:req-sym req-sym})}}))
+  {(:url req)
+   {(:method req)
+    `(fn [req#]
+       ~res)}})
 
 (defn with-query-params [req res]
-  (let [req-sym (gensym)]
-    {{:address      (:url req)
-      :query-params (:query-params req)}
-     (with-meta
-       `(fn [~req-sym]
-          ~res)
-       {:req-sym req-sym})}))
+  {{:address      (:url req)
+    :query-params (:query-params req)}
+   `(fn [req#]
+      ~res)})
 
 (defn convert-stub [httpkit-stub-vec]
   (let [req (first httpkit-stub-vec)

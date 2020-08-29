@@ -21,11 +21,11 @@
 
                      "hello-world")))
 
-          req-symbol (:req-sym (meta (:get (get (second out) "base-url"))))]
+          auto-gensym (first (second (:get (get (second out) "base-url"))))]
 
       (is (= out
             `(clj-http.fake/with-fake-routes-in-isolation
-               {"base-url" {:get (fn [~req-symbol] ~response-value)}}
+               {"base-url" {:get (fn [~auto-gensym] ~response-value)}}
 
                "hello-world")))))
 
@@ -50,8 +50,8 @@
 
                      "hello-world")))
 
-          req-symbol (:req-sym
-                       (meta (get
+          req-symbol (first
+                       (second (get
                                (second out)
                                {:address      "base-url"
                                 :query-params {:param-one "one" :param-two "two"}})))]
@@ -87,8 +87,8 @@
                          {:status 200}))
                      "hello world")))
 
-          req-symbol-1 (:req-sym (meta (:get (get (second out) "base-url"))))
-          req-symbol-2 (:req-sym (meta (:head (get (second out) "base-url-2"))))]
+          req-symbol-1 (first (second (:get (get (second out) "base-url"))))
+          req-symbol-2 (first (second (:head (get (second out) "base-url-2"))))]
 
       (is (= out
             `(clj-http.fake/with-fake-routes-in-isolation
